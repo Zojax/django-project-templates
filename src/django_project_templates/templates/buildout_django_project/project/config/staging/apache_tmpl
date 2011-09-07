@@ -1,0 +1,28 @@
+<VirtualHost *:80>
+    ServerName $(project).$(staging_domain)
+    ServerAlias www.$(project).$(staging_domain)
+
+    SetEnv DEPLOYMENT_TARGET staging
+    WSGIScriptAlias / /home/newsapps/sites/$(project)/application.wsgi
+    <Directory /home/newsapps/sites/$(project)/repository>
+        Order deny,allow
+        Allow from all
+    </Directory>
+    
+    Redirect permanent /favicon.ico http://media.$(staging_domain)/$(project)/media/favicon.ico
+    
+    Alias /robots.txt /home/newsapps/sites/$(project)/repository/media/robots.txt
+ 
+    ErrorLog /home/newsapps/logs/$(project).error.log
+    LogLevel warn
+
+    ServerSignature Off
+    
+    RewriteEngine on
+    # canonical hostname
+    RewriteCond %{HTTP_HOST} !^$(project).$(staging_domain) [NC] 
+    RewriteRule ^/(.*)  http://$(project).$(staging_domain)/$1 [L,R]
+    
+    RewriteCond %{REQUEST_URI} /maintenance.html$ 
+    RewriteRule $ / [R=302,L]
+</VirtualHost>

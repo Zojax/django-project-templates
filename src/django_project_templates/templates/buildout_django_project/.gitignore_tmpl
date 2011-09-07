@@ -1,0 +1,10 @@
+*.pyc
+*.db
+pip-log.txt
+build
+error.log
+*~
+local_settings.py
+.idea
+.pydevproject
+.project

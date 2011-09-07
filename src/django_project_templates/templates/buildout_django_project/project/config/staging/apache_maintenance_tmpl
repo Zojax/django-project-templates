@@ -1,0 +1,23 @@
+<VirtualHost *:80>
+    ServerName $(project).$(staging_domain)
+    ServerAlias www.$(project).$(staging_domain)
+    
+    Redirect permanent /favicon.ico http://media.$(staging_domain)/media/favicon.ico
+    
+    Alias /robots.txt /home/newsapps/sites/$(project)/media/robots.txt
+ 
+    ErrorLog /home/newsapps/logs/$(project).error.log
+    LogLevel warn
+
+    ServerSignature Off
+    
+    RewriteEngine on
+    # canonical hostname
+    RewriteCond %{HTTP_HOST} !^$(project).$(production_domain) [NC] 
+    RewriteRule ^/(.*)  http://$(project).$(production_domain)/$1 [L,R]
+    
+    DocumentRoot /home/newsapps/sites/$(project)/media/
+    
+    RewriteCond %{REQUEST_URI} !/maintenance.html$ 
+    RewriteRule $ /maintenance.html [R=302,L]
+</VirtualHost>

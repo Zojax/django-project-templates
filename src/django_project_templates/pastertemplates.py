@@ -62,10 +62,14 @@ class NewsAppsProjectTemplate(DjangoTemplate):
     def __init__(self, name):
         append_secret_key(self.vars)
         append_db_password(self.vars)
-        if re.search(r'[^a-zA-Z0-9]', name):
+        if name and re.search(r'[^a-z_A-Z0-9]', name):
             raise Exception('Use only alphanumeric characters for your project name')
         super(NewsAppsProjectTemplate, self).__init__(name)
 
 class SimpleNewsAppsTemplate(NewsAppsProjectTemplate):
     _template_dir = 'templates/simple_project'
     summary = 'Simplified template for a News Application Django project'
+
+class BuildoutDjangoProjectTemplate(NewsAppsProjectTemplate):
+    _template_dir = 'templates/buildout_django_project'
+    summary = 'Simple template for a buildout-based Django project'
