@@ -1,0 +1,17 @@
+*.pyc
+*.db
+pip-log.txt
+build
+error.log
+*~
+local_settings.py
+.idea
+.pydevproject
+.project
+/downloads
+/eggs
+/develop-eggs
+/parts
+/bin
+/versions-picked.cfg
+.*.cfg
