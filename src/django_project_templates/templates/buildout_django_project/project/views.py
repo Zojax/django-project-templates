@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
 def index_view(request):
-    return render_to_response('templates/base.html')
+    return render_to_response('base.html')
 
 def handler500(request, template_name='500.html'):
     """
